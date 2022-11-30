@@ -1,0 +1,21 @@
+.hidden {
+    display: none;
+}
+
+header h1  {
+    color: red;  
+}
+
+button {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: larger;
+    background-color: rgb(0, 0, 0);
+    color: forestgreen;
+    box-shadow: purple;
+}
+
+.questionContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
