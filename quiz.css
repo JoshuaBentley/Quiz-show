@@ -2,16 +2,35 @@
     display: none;
 }
 
-header h1  {
-    color: red;  
+ body {
+  background-color: black;
 }
 
-button {
+p {
+    color: yellow;
+    font-size: 25px;
+}
+
+header h1  {
+    font-size: 60px;
+    color: red;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;  
+}  
+
+#startButton {
+    border: 2px solid red;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: larger;
-    background-color: rgb(0, 0, 0);
-    color: forestgreen;
+    font-size: .95rem;
+    background-color: rgba(72, 8, 183, 0.588);
+    color: rgb(20, 230, 20);
     box-shadow: purple;
+}
+
+#startButton:hover {
+    cursor: grab;
+    background-color: rgb(186, 17, 46);
+    border: 2px solid blue;
+    color: yellow;
 }
 
 .questionContainer {
@@ -19,3 +38,8 @@ button {
     justify-content: center;
     align-items: center;
 }
+
+#correct, #wrong1, #wrong2, #wrong3 {
+    color: blue;
+} 
+
