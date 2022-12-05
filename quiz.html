@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="quiz.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javascript Quiz</title>
+    <link rel="stylesheet" href="quiz.css">
+    <title>Joshua's Javascript Test</title>
 </head>
-
-<body>
-    <header>
-        <h1>Javascript Quiz Show!</h1>
-        <p id="currentScore">Current Score: 0</p>
-        <p id="timeleft">Time remaining: 0</p>
-        <button id="startButton">Click here to start the fun!</button>
-    <header>
-    <article class="questionContainer"> 
-        <section class="hidden" id="question1"> How do I target an id in Javascript?
-            <button id="correct">.getElementById</button>
-            <button id="wrong1">.textContent</button>
-            <button id="wrong2">.querySelector</button>
-            <button id="wrong3">All of the above</button>
-            <button class="hidden" id="nextButton">Next Question</button>
-            </section> 
-
-        <section class="hidden" id="question2">questiosn 2   
-            <button id="correct1">Answer1</button>
-            <button id="wrong1">Answer2</button>
-            <button id="wrong2">Answer3</button>
-            <button id="wrong3">Answer4</button>
-            <button class="hidden">Next Question</button>
-            </section>  
-    </article> 
-<script src="quiz.js"></script>
+<body class="nuetral" id="backgroundcolor">
+    <main class="quizContainer">
+        <div class="hidden" id="questionsContainer">
+            <article id="question">Question</article>
+            <div id="timer">0</div>
+            <section class="questionAnswers" id="answerButtons">
+                <button class="unanswered">Answer 1</button>
+                <button class="unanswered">Answer 2</button>
+                <button class="unanswered">Answer 3</button>
+                <button class="unanswered">Answer 4</button> 
+            </section>
+        </div>
+        <section class="quizNavagation">
+            <button class="startButton" id="start">Start</button>
+            <button class="nextButton hidden" id="next">Next</button>
+        </section>
+    </main>
+  <script src="quiz.js"></script>  
 </body>
 </html>

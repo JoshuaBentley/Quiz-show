@@ -1,54 +1,135 @@
-// area where my variable will live
-var startButtonEventListener =  document.getElementById("startButton");
-var questionOneEventListner = document.getElementById("question1");
-var corrctAnswerListner = document.getElementById("correct");
-var wrongAnswerOneListner = document.getElementById("wrong1");
-var wrongAnswerTwoListner = document.getElementById("wrong2");
-var wrongAnswerThreeListner = document.getElementById("wrong3");
-var changeToNextQuestion = document.getElementById("nextButton");
-var questionTwoEventListner = document.getElementById("question2");
-var timerCountDown = document.getElementById("timeleft")
-var timer = 200; 
 
-// event listenres live here for now
-startButtonEventListener.addEventListener("click", startingTheGame);
-corrctAnswerListner.addEventListener("click", answeringQuestionOne);
-wrongAnswerOneListner.addEventListener("click", answeringQuestionOne);
-wrongAnswerTwoListner.addEventListener("click", answeringQuestionOne);
-wrongAnswerThreeListner.addEventListener("click", answeringQuestionOne);
-changeToNextQuestion.addEventListener("click", chnagingQuestions);
+var startButton = document.getElementById("start");
+var nextButton = document.getElementById("next");
+var answerButton = document.getElementById("answerButtons");
+var questionsContainer = document.getElementById("questionsContainer");
+var questionForQuiz = document.getElementById("question")
+var timer = 200;
+var timerCountDown = document.getElementById("timer")
+var shuffleQuestions, currentQuestion;
 
-// starting functions here
-function startingTheGame() {
-    startButtonEventListener.classList.add("hidden");
-    questionOneEventListner.classList.remove("hidden");
-    // setCountDown
+
+startButton.addEventListener("click", startQuiz);
+nextButton.addEventListener("click", () => {
+    console.log("click")
+    console.log(currentQuestion)
+    currentQuestion++
+    console.log(currentQuestion)
+    settingQuestions()
+})
+
+
+function startQuiz() {
+    startButton.classList.add("hidden")
+    shuffleQuestions = quizArray.sort(() => Math.random() - .5)
+    currentQuestion = 0
+    questionsContainer.classList.remove("hidden")
+    settingQuestions()
+    timerControl()
+}
+
+function settingQuestions() {
+    resetState()
+    showQuestion(shuffleQuestions[currentQuestion])
+  
+}
+
+function showQuestion(question) {
+    questionForQuiz.innerText = question.questions
+    question.answer.forEach(answer => {
+        var button = document.createElement("button")
+        button.innerText = answer.text
+        console.log(button)
+        button.classList.add("unanswered")
+        if (answer.correct) {
+            button.dataset.correct = answer.correct
+        } 
+        
+        button.addEventListener("click", selectingAnswers)
+        answerButton.appendChild(button)
+    });   
+}
+
+function selectingAnswers(e) {
+        var selectedAnswer = e.target
+        var correct = selectedAnswer.dataset.correct
+        setStatusClass(document.body, correct)
+        Array.from(answerButton.children).forEach(button => {
+            setStatusClass(button, button.dataset.correct)
+        })
+        if (shuffleQuestions.length > currentQuestion + 1) {
+            nextButton.classList.remove("hidden")
+        } else {
+            startButton.innerText = "Play Again"
+            startButton.classList.remove("hidden")
+        }
+}       
+
+function setStatusClass(element, correct) {
+    clearStatusClass(element)
+    if (correct) {
+        element.classList.add("correct")
+    } else {
+        element.classList.add("wrong")
     }
-
-function answeringQuestionOne() {
-    changeToNextQuestion.classList.remove("hidden");
 }
 
-function chnagingQuestions() {
-    questionOneEventListner.classList.add("hidden")
-    questionTwoEventListner.classList.remove("hidden")
+function clearStatusClass(element) {
+    element.classList.remove("correct")
+    element.classList.remove("wrong")
+}
+ 
+function resetState() {
+    nextButton.classList.add('hidden')
+    while (answerButton.firstChild) {
+        answerButton.removeChild(answerButton.firstChild)
+    }
 }
 
-function selectingAnswer() {
-    wrongAnswerOneListner.style.color = "red";
-    wrongAnswerTwoListner.style.color = "red";
-    wrongAnswerThreeListner.style.color = "red";
-    corrctAnswerListner.style.color = "green";
-   return answeringQuestionOne() 
-}
-/*
-function setCountDown() {
-    timerCountDown.textContent = "Time to finish quiz: " + timer + " seconds";
-    return startingTheGame()
-}
-*/  
+var quizArray = [
+    {
+        questions: "What does HTML stand for?", 
+        answer: [
+            {text: "How To Make Loonies", correct: false},
+            {text: "Hyper Text Markup Language", correct: true},  
+            {text: "Hyper Text Market Language", correct: false}, 
+            {text: "Trick question, it doesn't stand for anything.", correct: false}
+        ]
+    },
+    {
+        questions: "What does JS stand for?", 
+        answer: [
+            {text: "JazzScript", correct: false},
+            {text: "Java Script", correct: false},  
+            {text: "Javascript", correct: false}, 
+            {text: "JavaScript", correct: true}
+        ]
+    },
+    {
+        questions: "What does CSS stand for?", 
+        answer: [
+            {text: "Cascading Style System", correct: false},
+            {text: "Colorful Style Sheet", correct: false},  
+            {text: "Cascading Style Sheet", correct: true}, 
+            {text: "Colorful Style system", correct: false}
+        ]    
+    }
+]
 
-function questionsForTheQuiz()  {
-    
-    
-}
+function timerControl() {
+    // Sets interval in variable
+    var timerInterval = setInterval(function() {
+      timer--;
+      timerCountDown.innerText = timer + " Time left to finish quiz.";
+  
+      if(timer === 0) {
+        // Stops execution of action at set interval
+        clearInterval(timerInterval);
+        // Calls function to create and append image
+        ;
+      }
+  
+    }, 1000);
+  }
+
+
